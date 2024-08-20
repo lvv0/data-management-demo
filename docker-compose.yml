@@ -1,0 +1,15 @@
+version: "3.3"
+
+networks:
+  video_network:
+
+
+services:
+
+################# 部署 ##################
+  demo:
+    build:
+      context: ./images
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080"

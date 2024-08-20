@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据提交与查询</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>数据提交与查询</h1>
+    <div class="form-group">
+        <label for="fileUpload">上传 XLS/XLSX 文件:</label>
+        <input type="file" id="fileUpload" accept=".xls,.xlsx">
+        <button onclick="uploadFile()">提交</button>
+    </div>
+    <div class="form-group">
+        <button onclick="fetchData()">查询</button>
+    </div>
+    <table id="dataTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 数据行会被动态插入在这里 -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    async function uploadFile() {
+        const fileInput = document.getElementById('fileUpload');
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('请先选择一个 XLS 或 XLSX 文件');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('http://127.0.0.1:8080/api/add', {
+            // const response = await fetch('http://47.94.218.214:8080/api/add', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                alert('文件上传成功');
+            } else {
+                alert('文件上传失败');
+            }
+        } catch (error) {
+            console.error('上传错误:', error);
+            alert('上传过程中发生错误');
+        }
+    }
+
+    async function fetchData() {
+        try {
+            const response = await fetch('http://127.0.0.1:8080/api/get');
+            // const response = await fetch('http://47.94.218.214:8080/api/get');
+            if (response.ok) {
+                const data = await response.json();
+                const tableBody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';
+
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                            <td>${row.id}</td>
+                            <td>${row.username}</td>
+                            <td>${row.phone}</td>
+                        `;
+                    tableBody.appendChild(tr);
+                });
+            } else {
+                alert('获取数据失败');
+            }
+        } catch (error) {
+            console.error('查询错误:', error);
+            alert('查询过程中发生错误');
+        }
+    }
+</script>
+</body>
+</html>
