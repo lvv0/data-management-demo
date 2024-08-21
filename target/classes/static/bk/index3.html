@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据管理页面</title>
+    <style>
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        /* 高亮样式 */
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<h1>数据管理页面</h1>
+
+<!-- XLS 文件上传与数据提交部分 -->
+<section>
+    <h2>批量提交数据</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="xlsFile" name="xlsFile" accept=".xls, .xlsx" required>
+        <button type="submit">提交数据</button>
+    </form>
+    <div id="invalidDataContainer"></div>
+</section>
+
+<hr>
+
+<!-- 分页展示已存储的数据部分 -->
+<section>
+    <h2>已存储数据</h2>
+    <table id="dataTable">
+        <thead>
+        <tr>
+            <th>用户id</th>
+            <th>姓氏</th>
+            <th>手机号码</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>民族</th>
+            <th>婚姻状况</th>
+            <th>证件区县</th>
+            <th>开卡区县</th>
+            <th>用户状态</th>
+            <th>号码品牌</th>
+            <th>用户类型</th>
+            <th>所属区域</th>
+            <th>付费类型</th>
+            <th>星级</th>
+            <th>是否当月新增</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="pagination"></div>
+</section>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('file', document.getElementById('xlsFile').files[0]);
+
+        fetch('http://127.0.0.1:8080/api/addBB', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                displayInvalidData(data.list1, data.list2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+
+    function displayInvalidData(list1, list2) {
+        const container = document.getElementById('invalidDataContainer');
+        container.innerHTML = ''; // 清空容器内容
+
+        if (list1.length === 0) {
+            container.innerHTML = '<p>所有数据均符合规则。</p>';
+            return;
+        }
+
+        const table = document.createElement('table');
+        const thead = document.createElement('thead');
+        const tbody = document.createElement('tbody');
+
+        // 表头
+        const headerRow = document.createElement('tr');
+        const headers = [
+            '用户id', '姓氏', '手机号码', '年龄', '性别', '民族', '婚姻状况',
+            '证件区县', '开卡区县', '用户状态', '号码品牌', '用户类型',
+            '所属区域', '付费类型', '星级', '是否当月新增'
+        ];
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+
+        // 表体
+        list1.forEach((item, index) => {
+            const row = document.createElement('tr');
+            const fieldIds = list2[index];
+
+            Object.keys(item).forEach((key, idx) => {
+                const td = document.createElement('td');
+                td.textContent = item[key];
+
+                // 高亮无效字段
+                if (fieldIds.includes(idx)) {
+                    td.classList.add('highlight');
+                }
+                row.appendChild(td);
+            });
+
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        container.appendChild(table);
+    }
+
+    function loadStoredData(page = 1) {
+        const rowsPerPage = 15;
+        fetch(`http://127.0.0.1:8080/api/get?page=${page}&size=${rowsPerPage}`)
+            .then(response => response.json())
+            .then(data => {
+                displayStoredData(data.items);
+                setupPagination(data.totalPages, page);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function displayStoredData(items) {
+        const tbody = document.getElementById('dataTable').querySelector('tbody');
+        tbody.innerHTML = ''; // 清空表格内容
+
+        items.forEach(item => {
+            const row = document.createElement('tr');
+            Object.values(item).forEach(value => {
+                const td = document.createElement('td');
+                td.textContent = value;
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+    }
+
+    function setupPagination(totalPages, currentPage) {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = ''; // 清空分页
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.textContent = i;
+            pageLink.href = '#';
+            pageLink.style.margin = '0 5px';
+
+            if (i === currentPage) {
+                pageLink.style.fontWeight = 'bold';
+            }
+
+            pageLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadStoredData(i);
+            });
+
+            pagination.appendChild(pageLink);
+        }
+    }
+
+    // 初始加载第一页数据
+    loadStoredData();
+</script>
+</body>
+</html>

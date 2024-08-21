@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>综合数据管理页面</title>
+    <style>
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        /* 高亮样式 */
+        .highlight {
+            background-color: yellow;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container111 {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .leftwz{
+            max-width: 600px;
+            margin: 20px 0 0 200px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .gradient-background {
+            background: linear-gradient(to right, #00aaff, #698ced);
+            /* 这里的#00aaff和#0044ff是渐变的起始和结束颜色，你可以根据需要调整 */
+            height: 100vh; /* 确保背景覆盖整个视口高度 */
+            margin: 0;
+        }
+        .bold-italic {
+            font-family: "KaiTi", "楷体", "楷体_GB2312", "Microsoft YaHei", sans-serif;
+            font-weight: bold;
+            font-style: italic;
+            /* 由于楷体字体本身可能已经包含加粗效果，这里使用了font-weight: bold; 和 font-style: italic; 进行设置 */
+        }
+        .hthp{
+            font-family: "华文琥珀", "STHupo", serif;
+            font-weight: bold;
+        }
+        .blurred-background{
+            background-image: url('./1724221504228.jpg'); /* 替换为你的图片 URL */
+            background-size: cover; /* 确保图片覆盖整个背景 */
+            background-position: center; /* 图片居中对齐 */
+            background-repeat: no-repeat; /* 防止图片重复 */
+            height: 20vh; /* 确保背景覆盖整个视口高度 */
+            /* filter: blur(8px);  */
+            /* -webkit-filter: blur(8px); */
+            position: relative; /* 使子元素定位相对于父元素*/
+            }
+        .content {
+            position: absolute; /* 绝对定位使内容在背景上方 */
+            top: 50%; /* 垂直居中 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, -50%); /* 使内容完全居中 */
+            color: white; /* 设置文字颜色 */
+            z-index: 1; /* 确保内容在背景图片之上 */
+            text-align: center; /* 使文本居中对齐 */
+        }
+        .image-container{
+           max-width: 100%; /* 确保图片在容器内自适应宽度 */
+           height: auto; /* 维护图片的纵横比 */
+           border-radius: 8px; /* 可选，为图片添加圆角效果 */
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 可选，为图片添加阴影 */
+           margin: 0 auto;
+        }
+        .image-container1{
+           max-width: 120%; /* 确保图片在容器内自适应宽度 */
+           height: auto; /* 维护图片的纵横比 */
+           border-radius: 8px; /* 可选，为图片添加圆角效果 */
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 可选，为图片添加阴影 */
+        }
+    </style>
+</head>
+<body>
+
+<!-- <h1>综合数据管理页面</h1> -->
+<div class="blurred-background">
+    <div class="content">
+    </div>
+</div>
+
+<div class="jumbotron">
+    <div class="h-50 d-inline-block"><h1 class="display-4"><div class="text-primary"><div class="bold-italic">C班5、6组：立大功汪汪队&数据别和我作队</div></div></h1></div>
+    <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm">
+        <div class="container111">
+            <img src="./微信图片_20240821143310.png" alt="Description of image" class="image-container">
+        </div>
+      </div>
+
+      <div class="col-sm">
+        <div class="container111">
+            <h3 class="shadow-sm p-3 mb-5 bg-white rounded">综合数据管理页面 <span class="badge badge-secondary">数据管理</span></h3>
+                <label for="fileUpload"><div class="text-info">上传 XLS/XLSX 文件:</div></label>
+                <section>
+                    <h2>批量提交数据</h2>
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <input type="file" id="xlsFile" name="xlsFile" accept=".xls, .xlsx" required>
+                        <br><br>
+                        <div class="container">
+                            <div class="row">
+                              <div class="col-sm">
+                                <select id="tableSelect">
+                                    <option value="B">B表</option>
+                                    <option value="C">C表</option>
+                                </select>
+                              </div>
+                              <div class="col-sm">
+                              </div>
+                              <div class="col-sm">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                              </div>
+                            </div>
+                          </div>
+                    </form>
+                </section>
+                  <!-- <div class="container">
+                    <div class="row">
+                      <div class="col-sm">
+                      </div>
+                      <div class="col-sm">
+                      </div>
+                      <div class="col-sm">
+                        <br>
+                        <button onclick="uploadFile()"  class="btn btn-primary">提交</button>
+                      </div>
+                    </div>
+                  </div> -->
+                  <!-- <button onclick="uploadFile()"  class="btn btn-primary">提交</button> -->
+            </div>
+      </div>
+
+      <div class="col-sm">
+        <div >
+            <img src="./微信图片_20240821113401.jpg" alt="Description of image" class="image-container">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+<!-- XLS 文件上传与数据提交部分 -->
+
+<hr>
+
+<!-- A表 数据展示 -->
+<section>
+    <h2 class="hthp">A表 数据展示</h2>
+    <button id="queryButton" data-table="A" class="btn btn-primary">查询数据</button>
+    <table id="dataTableA" class="table table-dark">
+        <thead>
+        <tr>
+            <th>用户id</th>
+            <th>姓氏</th>
+            <th>手机号码</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>民族</th>
+            <th>婚姻状况</th>
+            <th>证件区县</th>
+            <th>开卡区县</th>
+            <th>用户状态</th>
+            <th>号码品牌</th>
+            <th>用户类型</th>
+            <th>所属区域</th>
+            <th>付费类型</th>
+            <th>星级</th>
+            <th>当月是否沉默</th>
+            <th>是否当月新增</th>
+            <th>主套餐编码</th>
+            <th>主套餐价格</th>
+            <th>当月是否语音超套</th>
+            <th>当月超套额度</th>
+            <th>IMEI手机串号</th>
+            <th>终端类型</th>
+            <!--            <th>是否当月新增</th>-->
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="pagination" id="paginationA"></div>
+</section>
+
+<hr>
+
+<!-- B表 数据展示 -->
+<section>
+    <h2 class="hthp">B表 数据展示</h2>
+    <button id="queryButton" data-table="B" class="btn btn-primary">查询数据</button>
+    <table id="dataTableB" class="table table-dark">
+        <thead>
+        <tr>
+            <th>用户id</th>
+            <th>姓氏</th>
+            <th>手机号码</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>民族</th>
+            <th>婚姻状况</th>
+            <th>证件区县</th>
+            <th>开卡区县</th>
+            <th>用户状态</th>
+            <th>号码品牌</th>
+            <th>用户类型</th>
+            <th>所属区域</th>
+            <th>付费类型</th>
+            <th>星级</th>
+            <th>是否当月新增</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="pagination" id="paginationB"></div>
+</section>
+
+<hr>
+
+<!-- C表 数据展示 -->
+<section>
+    <h2 class="hthp">C表 数据展示</h2>
+    <button id="queryButton" data-table="C" class="btn btn-primary">查询数据</button>
+    <table id="dataTableC" class="table table-dark">
+        <thead>
+        <tr>
+            <th>用户id</th>
+            <th>手机号码</th>
+            <th>用户状态</th>
+            <th>付费类型</th>
+            <th>星级</th>
+            <th>主套餐编码</th>
+            <th>主套餐价格</th>
+            <th>当月是否沉默</th>
+            <th>当月是否超套额度</th>
+            <th>当月欠费次数</th>
+            <th>当月主叫次数</th>
+            <th>是否订购5G套餐</th>
+            <th>IMEI手机串号</th>
+            <th>终端类型</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div class="pagination" id="paginationC"></div>
+</section>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('file', document.getElementById('xlsFile').files[0]);
+        const table = document.getElementById('tableSelect').value;
+
+        fetch(`http://127.0.0.1:8080/api/add${table}`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (table==='B'){
+                    displayInvalidData_B(data.list1, data.list2);
+                    // loadStoredData();
+                } else {
+                    displayInvalidData_C(data.list1, data.list2);
+                    // loadStoredData();
+                }
+                // displayInvalidData(data.list1, data.list2, table);
+                // loadStoredData(table); // 上传后加载最新数据
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+
+    function displayInvalidData_B(list1, list2) {
+        const tbody = document.getElementById('dataTableB').querySelector('tbody');
+        tbody.innerHTML = ''; // 清空表格内容
+
+        if (list1.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="16">所有数据均符合规则。</td></tr>';
+            return;
+        }
+
+        list1.forEach((item, index) => {
+            const row = document.createElement('tr');
+            const fieldIds = list2[index];
+
+            Object.keys(item).forEach((key, idx) => {
+                const td = document.createElement('td');
+                td.textContent = item[key];
+
+                // 高亮无效字段
+                if (fieldIds.includes(idx)) {
+                    td.classList.add('highlight');
+                }
+                row.appendChild(td);
+            });
+
+            tbody.appendChild(row);
+        });
+    }
+
+
+    function displayInvalidData_C(list1, list2) {
+        const tbody = document.getElementById('dataTableC').querySelector('tbody');
+        tbody.innerHTML = ''; // 清空表格内容
+
+        if (list1.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="16">所有数据均符合规则。</td></tr>';
+            return;
+        }
+
+        list1.forEach((item, index) => {
+            const row = document.createElement('tr');
+            const fieldIds = list2[index];
+
+            Object.keys(item).forEach((key, idx) => {
+                const td = document.createElement('td');
+                td.textContent = item[key];
+
+                // 高亮无效字段
+                if (fieldIds.includes(idx)) {
+                    td.classList.add('highlight');
+                }
+                row.appendChild(td);
+            });
+
+            tbody.appendChild(row);
+        });
+    }
+
+    document.querySelectorAll('.queryButton').forEach(button => {
+        button.addEventListener('click', function () {
+            const table = this.getAttribute('data-table');
+            loadStoredData(table);
+        });
+    });
+
+    function loadStoredData(table, page = 1) {
+        const rowsPerPage = 15;
+        fetch(`http://127.0.0.1:8080/api/get${table}?page=${page}&size=${rowsPerPage}`)
+            .then(response => response.json())
+            .then(data => {
+                displayStoredData(data, table);
+                setupPagination(Math.ceil(data.length / rowsPerPage), page, table);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    function displayStoredData(items, table) {
+        const tbody = document.getElementById(`dataTable${table}`).querySelector('tbody');
+        tbody.innerHTML = ''; // 清空表格内容
+
+        items.forEach(item => {
+            const row = document.createElement('tr');
+
+            const data = {
+                A: [
+                    item.user_id, item.surname, item.phone_NUMBER, item.age, item.sex, item.nanl, item.mage_STATUS,
+                    item.idty_CNTY, item.open_CNTY, item.user_STATUS, item.msisdn_BRAND, item.user_TYPE,
+                    item.belo_AREA, item.pay_TYP, item.star, item.cm_IS_SILENT, item.is_CM_NADD, item.pri_PACKAGE_CODE
+                    , item.pri_PACKAGE_PRC, item.cm_IS_VOICE_OVER, item.cm_VOICE_OVER, item.imei, item.term_TYP
+                ],
+                B: [
+                    item.user_id, item.suename, item.phone_NUMBER, item.age, item.sex, item.nanl, item.mage_STATUS,
+                    item.idty_CNTY, item.open_CNTY, item.user_STATUS, item.msisdn_BRAND, item.user_TYPE,
+                    item.belo_AREA, item.pay_TYP, item.star, item.is_CM_NADD
+                ],
+                C: [
+                    item.user_id, item.phone_NUMBER, item.user_STATUS, item.pay_TYP, item.star, item.pri_PACKAGE_CODE
+                    , item.pri_PACKAGE_PRC, item.cm_IS_SILENT, item.cm_IS_VOICE_OVER, item.cm_OWE_CNT, item.cm_CALLING_CNT
+                    , item.is_ORD_5G_PACKAGE, item.imei, item.term_TYP
+                ]
+            };
+
+            data[table].forEach(value => {
+                const td = document.createElement('td');
+                td.textContent = value;
+                row.appendChild(td);
+            });
+
+            tbody.appendChild(row);
+        });
+    }
+
+    function setupPagination(totalPages, currentPage, table) {
+        const pagination = document.getElementById(`pagination${table}`);
+        pagination.innerHTML = ''; // 清空分页
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageLink = document.createElement('a');
+            pageLink.textContent = i;
+            pageLink.href = '#';
+            pageLink.style.margin = '0 5px';
+
+            if (i === currentPage) {
+                pageLink.style.fontWeight = 'bold';
+            }
+
+            pageLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadStoredData(table, i);
+            });
+
+            pagination.appendChild(pageLink);
+        }
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-7ymO4nGrkm372HoSbq1OY2DP4pEZnMiA+E0F3zPr+JQQtQ82gQ1HPY3QIVtztVua" crossorigin="anonymous"></script
+</body>
+</html>

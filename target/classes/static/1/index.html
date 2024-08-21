@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>数据提交与查询</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container111 {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .leftwz{
+            max-width: 600px;
+            margin: 20px 0 0 200px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .gradient-background {
+            background: linear-gradient(to right, #00aaff, #698ced);
+            /* 这里的#00aaff和#0044ff是渐变的起始和结束颜色，你可以根据需要调整 */
+            height: 100vh; /* 确保背景覆盖整个视口高度 */
+            margin: 0;
+        }
+        .bold-italic {
+            font-family: "KaiTi", "楷体", "楷体_GB2312", "Microsoft YaHei", sans-serif;
+            font-weight: bold;
+            font-style: italic;
+            /* 由于楷体字体本身可能已经包含加粗效果，这里使用了font-weight: bold; 和 font-style: italic; 进行设置 */
+        }
+        .blurred-background{
+            background-image: url('./1724221504228.jpg'); /* 替换为你的图片 URL */
+            background-size: cover; /* 确保图片覆盖整个背景 */
+            background-position: center; /* 图片居中对齐 */
+            background-repeat: no-repeat; /* 防止图片重复 */
+            height: 20vh; /* 确保背景覆盖整个视口高度 */
+            /* filter: blur(8px);  */
+            /* -webkit-filter: blur(8px); */
+            position: relative; /* 使子元素定位相对于父元素*/
+            }
+        .content {
+            position: absolute; /* 绝对定位使内容在背景上方 */
+            top: 50%; /* 垂直居中 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, -50%); /* 使内容完全居中 */
+            color: white; /* 设置文字颜色 */
+            z-index: 1; /* 确保内容在背景图片之上 */
+            text-align: center; /* 使文本居中对齐 */
+        }
+        .image-container{
+           max-width: 80%; /* 确保图片在容器内自适应宽度 */
+           height: auto; /* 维护图片的纵横比 */
+           border-radius: 8px; /* 可选，为图片添加圆角效果 */
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 可选，为图片添加阴影 */
+           margin: 0 auto;
+        }
+        .image-container1{
+           max-width: 120%; /* 确保图片在容器内自适应宽度 */
+           height: auto; /* 维护图片的纵横比 */
+           border-radius: 8px; /* 可选，为图片添加圆角效果 */
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* 可选，为图片添加阴影 */
+        }
+    </style>
+</head>
+<body>
+
+
+    
+    <div class="blurred-background">
+        <div class="content">
+        </div>
+    </div>
+
+
+    <div class="jumbotron">
+        <div class="h-50 d-inline-block"><h1 class="display-4"><div class="text-primary"><div class="bold-italic">C班5、6组：立大功汪汪队&数据别和我作队</div></div></h1></div>
+        <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+      </div>
+
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-sm">
+            <div class="container111">
+                <img src="./微信图片_20240821143310.png" alt="Description of image" class="image-container">
+            </div>
+          </div>
+
+          <div class="col-sm">
+            <div class="container111">
+                <h3 class="shadow-sm p-3 mb-5 bg-white rounded">数据提交与查询 <span class="badge badge-secondary">表名:11111111111111111</span></h3>
+                    <label for="fileUpload"><div class="text-info">上传 XLS/XLSX 文件:</div></label>
+                    <input type="file" id="fileUpload" accept=".xls,.xlsx" class="btn btn-outline-primary">
+                    <!-- <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroupFileAddon01">上传XLS/XLSX文件</span>
+                        </div>
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="fileUpload" aria-describedby="inputGroupFileAddon01" accept=".xls,.xlsx" class="btn btn-outline-primary">
+                          <label class="custom-file-label" for="inputGroupFile01">选择文件</label>-->
+                          <!-- <button onclick="uploadFile()"  class="btn btn-primary">提交</button>
+                        </div>
+                      </div> -->
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-sm">
+                          </div>
+                          <div class="col-sm">
+                          </div>
+                          <div class="col-sm">
+                            <br>
+                            <button onclick="uploadFile()"  class="btn btn-primary">提交</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- <button onclick="uploadFile()"  class="btn btn-primary">提交</button> -->
+                </div>
+          </div>
+
+          <div class="col-sm">
+            <div >
+                <img src="./微信图片_20240821113401.jpg" alt="Description of image" class="image-container">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <div class="form-group">
+        <!-- <div class="leftwz">
+            <img src="./微信图片_20240821113401.jpg" alt="Description of image" class="image-container">
+        </div> -->
+<!-- <div class="container">
+    <h1 class="shadow-sm p-3 mb-5 bg-white rounded">数据提交与查询 <span class="badge badge-secondary">表C？</span></h1>
+        <label for="fileUpload"><div class="text-info">上传 XLS/XLSX 文件:</div></label>
+        <input type="file" id="fileUpload" accept=".xls,.xlsx" class="btn btn-outline-primary"> -->
+        <!-- <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupFileAddon01">上传XLS/XLSX文件</span>
+            </div>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="fileUpload" aria-describedby="inputGroupFileAddon01" accept=".xls,.xlsx" class="btn btn-outline-primary">
+              <label class="custom-file-label" for="inputGroupFile01">选择文件</label>-->
+              <!-- <button onclick="uploadFile()"  class="btn btn-primary">提交</button>
+            </div>
+          </div> -->
+          <!-- <button onclick="uploadFile()"  class="btn btn-primary">提交</button>
+    </div> -->
+    <div class="form-group">
+        <button onclick="fetchData()"  class="btn btn-primary">查询</button>
+    </div>
+    <table id="dataTable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 数据行会被动态插入在这里 -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    async function uploadFile() {
+        const fileInput = document.getElementById('fileUpload');
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('请先选择一个 XLS 或 XLSX 文件');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('http://127.0.0.1:8080/api/add', {
+            // const response = await fetch('http://47.94.218.214:8080/api/add', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                alert('文件上传成功');
+            } else {
+                alert('文件上传失败');
+            }
+        } catch (error) {
+            console.error('上传错误:', error);
+            alert('上传过程中发生错误');
+        }
+    }
+
+    async function fetchData() {
+        try {
+            const response = await fetch('http://127.0.0.1:8080/api/get');
+            // const response = await fetch('http://47.94.218.214:8080/api/get');
+            if (response.ok) {
+                const data = await response.json();
+                const tableBody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';
+
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                            <td>${row.id}</td>
+                            <td>${row.username}</td>
+                            <td>${row.phone}</td>
+                        `;
+                    tableBody.appendChild(tr);
+                });
+            } else {
+                alert('获取数据失败');
+            }
+        } catch (error) {
+            console.error('查询错误:', error);
+            alert('查询过程中发生错误');
+        }
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-7ymO4nGrkm372HoSbq1OY2DP4pEZnMiA+E0F3zPr+JQQtQ82gQ1HPY3QIVtztVua" crossorigin="anonymous"></script>
+</body>
+</html>
