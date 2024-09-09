@@ -117,7 +117,7 @@
       <div class="col-sm">
         <div class="container111">
             <h3 class="shadow-sm p-3 mb-5 bg-white rounded">综合数据管理页面 <span class="badge badge-secondary">数据管理</span></h3>
-                <label for="uploadForm"><div class="text-info">上传 XLS/XLSX 文件:</div></label>
+                <label for="fileUpload"><div class="text-info">上传 XLS/XLSX 文件:</div></label>
                 <section>
                     <h2>批量提交数据</h2>
                     <form id="uploadForm" enctype="multipart/form-data">
@@ -173,8 +173,8 @@
 <!-- A表 数据展示 -->
 <section>
     <h2 class="hthp">A表 数据展示</h2>
-    <button class="queryButton" data-table="A" >查询数据</button>
-    <table id="dataTableA" class="table table-striped">
+    <button id="queryButton" data-table="A" class="btn btn-primary">查询数据</button>
+    <table id="dataTableA" class="table table-dark">
         <thead>
         <tr>
             <th>用户id</th>
@@ -213,8 +213,8 @@
 <!-- B表 数据展示 -->
 <section>
     <h2 class="hthp">B表 数据展示</h2>
-    <button class="queryButton" data-table="B" >查询数据</button>
-    <table id="dataTableB" class="table table-striped">
+    <button id="queryButton" data-table="B" class="btn btn-primary">查询数据</button>
+    <table id="dataTableB" class="table table-dark">
         <thead>
         <tr>
             <th>用户id</th>
@@ -245,8 +245,8 @@
 <!-- C表 数据展示 -->
 <section>
     <h2 class="hthp">C表 数据展示</h2>
-    <button id="queryButton" data-table="C" class="btn btn-primary" >查询数据</button>
-    <table id="dataTableC" class="table table-striped">
+    <button id="queryButton" data-table="C" class="btn btn-primary">查询数据</button>
+    <table id="dataTableC" class="table table-dark">
         <thead>
         <tr>
             <th>用户id</th>
@@ -341,16 +341,9 @@
             const row = document.createElement('tr');
             const fieldIds = list2[index];
 
-            const ittt = [
-                item.user_id, item.phone_NUMBER, item.user_STATUS, item.pay_TYP, item.star, item.pri_PACKAGE_CODE
-                , item.pri_PACKAGE_PRC, item.cm_IS_SILENT, item.cm_IS_VOICE_OVER, item.cm_OWE_CNT, item.cm_CALLING_CNT
-                , item.is_ORD_5G_PACKAGE, item.imei, item.term_TYP
-            ];
-            // console.log(item)
-
-            Object.keys(ittt).forEach((key, idx) => {
+            Object.keys(item).forEach((key, idx) => {
                 const td = document.createElement('td');
-                td.textContent = ittt[key];
+                td.textContent = item[key];
 
                 // 高亮无效字段
                 if (fieldIds.includes(idx)) {
@@ -358,17 +351,6 @@
                 }
                 row.appendChild(td);
             });
-
-            // Object.keys(ittt).forEach((key, idx) => {
-            //     const td = document.createElement('td');
-            //     td.textContent = item[key];
-            //
-            //     // 高亮无效字段
-            //     if (fieldIds.includes(idx)) {
-            //         td.classList.add('highlight');
-            //     }
-            //     row.appendChild(td);
-            // });
 
             tbody.appendChild(row);
         });
@@ -454,6 +436,6 @@
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-7ymO4nGrkm372HoSbq1OY2DP4pEZnMiA+E0F3zPr+JQQtQ82gQ1HPY3QIVtztVua" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-7ymO4nGrkm372HoSbq1OY2DP4pEZnMiA+E0F3zPr+JQQtQ82gQ1HPY3QIVtztVua" crossorigin="anonymous"></script
 </body>
 </html>
